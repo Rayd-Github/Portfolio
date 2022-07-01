@@ -1,0 +1,68 @@
+setwd("~/Dropbox/04 CURSOS & CONGRESSOS/JORNADA OMEGA/R PARA DECOLAR")
+# Projeto Integrador - R para decolar
+# O desafio era utilizar diferentes entradas de dados para o cálculo de uma equação.
+
+# 'https://www.ecampo.com.br/calculo-de-calagem'
+# Calculo de calagem (NC = Necessidade de calagem em toneladas por hectare)
+# V1: saturação por bases inical do solo
+# V2: saturação por bases desejada
+# CTC: capacitade de troca de cátions  
+# PRNT: poder relativo de neutralização 
+
+
+# 1)
+# A equação foi calculada  informando diretamente os valores das variáveis.
+v1<-10
+v2<-50
+ctc<-15
+prnt<-30
+calagem<-(v2-v1)*ctc/prnt
+calagem
+
+# 2)
+# Uma função foi criada para esta equação e os valores informados posteriormente 
+
+f_calagem<- function (v1,v2, ctc, prnt){
+    
+    NC <- ((v2 -v1)*ctc)/prnt
+    
+return (NC)
+
+}
+
+f_calagem (10, 50, 15, 30)
+
+
+# 3)
+# Utilizando a funçao Scan() dentro da função
+
+f_scan<- function (){
+    cat("informe os valores de v1,v2,ctc,prnt respectivamente\n")
+    i <- scan(stdin(), n=4, what = integer()) 
+    names(i)<-(c("v1","v2","ctc","prnt"))
+        NC <- ((i["v2"] - i["v1"])*i["ctc"])/i["prnt"]
+        return(NC)
+}
+
+f_scan()
+
+# 4
+# Lendo os arquivos a partir de um arquivo de texto cuja configuração 
+#var1:x
+#va2:y
+#var3:z
+#var4: w
+
+Dados<- read_delim("Dados_txt", delim = ":",
+                        escape_double = FALSE, col_names = FALSE, 
+                        trim_ws = TRUE)
+
+head(Dados)
+v1_txt<-Dados[1,2]
+v2_txt<-Dados[2,2]
+ctc_txt<-Dados[3,2]
+prnt_txt<-Dados[4,2]
+
+
+NC_txt <- ((v2_txt -v1_txt)*ctc_txt)/prnt_txt
+NC_txt
